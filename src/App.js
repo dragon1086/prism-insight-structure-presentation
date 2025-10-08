@@ -1018,19 +1018,120 @@ const PrismPresentation = () => {
                 </div>
 
                 <div className="bg-white p-3 rounded-lg mt-3">
-                  <div className="text-xs font-semibold text-emerald-600 mb-2">scenario JSON 구조 예시:</div>
-                  <div className="bg-gray-900 text-green-400 p-3 rounded font-mono text-xs overflow-x-auto">
-                    {`{
-  "portfolio_analysis": "보유 2/10슬롯...",
-  "buy_score": 8,
-  "decision": "진입",
-  "target_price": 450000,
-  "stop_loss": 365000,
-  "investment_period": "단기",
-  "rationale": "업종 대비 저평가...",
-  "sector": "조선",
-  "considerations": "보유 종목 수가 적고..."
+                  <div className="text-xs font-semibold text-emerald-600 mb-2">⭐ scenario JSON 구조 (매우 중요!):</div>
+                  
+                  <div className="space-y-3">
+                    {/* 기본 구조 */}
+                    <div className="bg-gray-50 p-3 rounded">
+                      <div className="font-semibold text-emerald-700 mb-2 text-xs">1. 기본 분석 필드</div>
+                      <div className="bg-gray-900 text-green-400 p-2 rounded font-mono text-xs overflow-x-auto">
+                        {`{
+  "portfolio_analysis": "현금 100% (0/10 슬롯)...",
+  "valuation_analysis": "PER 10.4배, PBR 0.54배...",
+  "sector_outlook": "친환경·음료 수요 견조...",
+  "market_condition": "국내 증시 약세 국면..."
 }`}
+                      </div>
+                    </div>
+
+                    {/* 매매 결정 필드 */}
+                    <div className="bg-gray-50 p-3 rounded">
+                      <div className="font-semibold text-emerald-700 mb-2 text-xs">2. 매매 결정 필드</div>
+                      <div className="bg-gray-900 text-green-400 p-2 rounded font-mono text-xs overflow-x-auto">
+                        {`{
+  "buy_score": 8,           // AI 매수 점수 (1-10)
+  "min_score": 8,           // 최소 진입 점수
+  "decision": "진입",       // 매매 결정
+  "target_price": 15500,    // 목표가
+  "stop_loss": 12500,       // 손절가
+  "investment_period": "중기", // 투자 기간
+  "sector": "화학/포장재",  // 산업군
+  "rationale": "저평가...", // 매수 근거
+  "max_portfolio_size": "5" // 최대 포트폴리오 크기
+}`}
+                      </div>
+                    </div>
+
+                    {/* trading_scenarios - 가장 중요! */}
+                    <div className="bg-yellow-50 p-3 rounded border-2 border-yellow-400">
+                      <div className="font-semibold text-yellow-800 mb-2 text-xs flex items-center gap-1">
+                        🔥 3. trading_scenarios (매매 시나리오 - 핵심!)
+                      </div>
+                      
+                      <div className="space-y-2">
+                        {/* key_levels */}
+                        <div>
+                          <div className="text-xs font-semibold text-yellow-700 mb-1">▸ key_levels (주요 가격대)</div>
+                          <div className="bg-gray-900 text-green-400 p-2 rounded font-mono text-xs overflow-x-auto">
+                            {`"key_levels": {
+  "primary_support": 13000,      // 1차 지지선
+  "secondary_support": 12500,    // 2차 지지선
+  "primary_resistance": 14500,   // 1차 저항선
+  "secondary_resistance": 15500, // 2차 저항선
+  "volume_baseline": "최근 20일 평균..."
+}`}
+                          </div>
+                        </div>
+
+                        {/* sell_triggers */}
+                        <div>
+                          <div className="text-xs font-semibold text-yellow-700 mb-1">▸ sell_triggers (매도 트리거 배열)</div>
+                          <div className="bg-gray-900 text-green-400 p-2 rounded font-mono text-xs overflow-x-auto">
+                            {`"sell_triggers": [
+  "익절 조건 1: 14,500원 상단 돌파 후...",
+  "익절 조건 2: 단기 급등(3일 내 8%↑)...",
+  "손절 조건 1: 13,000원 종가 이탈...",
+  "손절 조건 2: 12,500원 지지 실패...",
+  "시간 조건: 3~6주 내 재도달 실패..."
+]`}
+                          </div>
+                        </div>
+
+                        {/* hold_conditions */}
+                        <div>
+                          <div className="text-xs font-semibold text-yellow-700 mb-1">▸ hold_conditions (보유 조건 배열)</div>
+                          <div className="bg-gray-900 text-green-400 p-2 rounded font-mono text-xs overflow-x-auto">
+                            {`"hold_conditions": [
+  "종가 기준 13,000원 상회 유지...",
+  "14,500원 돌파 시 거래대금 2배 이상...",
+  "외국인·기관 순매수 유입 지속..."
+]`}
+                          </div>
+                        </div>
+
+                        {/* portfolio_context */}
+                        <div>
+                          <div className="text-xs font-semibold text-yellow-700 mb-1">▸ portfolio_context (포트폴리오 맥락)</div>
+                          <div className="bg-gray-900 text-green-400 p-2 rounded font-mono text-xs overflow-x-auto">
+                            {`"portfolio_context": "현금 100% 상태에서 
+방어적 저평가 대형/중형주로 1슬롯 진입..."`}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* JSON 활용 방법 */}
+                <div className="bg-indigo-50 p-3 rounded-lg mt-3">
+                  <div className="text-xs font-semibold text-indigo-700 mb-2">💡 JSON 활용 방법</div>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className="bg-white p-2 rounded">
+                      <div className="font-semibold text-indigo-600">매수 전문가 (GPT-5)</div>
+                      <div className="text-gray-600">buy_score, decision 생성</div>
+                    </div>
+                    <div className="bg-white p-2 rounded">
+                      <div className="font-semibold text-indigo-600">매도 전문가 (GPT-5)</div>
+                      <div className="text-gray-600">trading_scenarios 기반 판단</div>
+                    </div>
+                    <div className="bg-white p-2 rounded">
+                      <div className="font-semibold text-indigo-600">포트폴리오 관리</div>
+                      <div className="text-gray-600">10개 슬롯, 섹터 분산</div>
+                    </div>
+                    <div className="bg-white p-2 rounded">
+                      <div className="font-semibold text-indigo-600">자동매매 실행</div>
+                      <div className="text-gray-600">target_price, stop_loss 활용</div>
+                    </div>
                   </div>
                 </div>
 
