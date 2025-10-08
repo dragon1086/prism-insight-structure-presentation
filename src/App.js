@@ -927,6 +927,296 @@ const PrismPresentation = () => {
       )
     },
 
+    // 슬라이드 8-1: SQLite DB 스키마
+    {
+      title: "6-3. 매매 시뮬레이션 데이터베이스 (SQLite)",
+      icon: <Database className="w-6 h-6" />,
+      content: (
+          <div className="space-y-6">
+            <div className="bg-gradient-to-r from-emerald-50 to-emerald-100 p-6 rounded-xl border-l-4 border-emerald-500">
+              <h3 className="text-xl font-bold mb-4">SQLite 데이터베이스 구조</h3>
+
+              <div className="bg-white p-4 rounded-lg mb-4">
+                <div className="font-semibold text-emerald-700 mb-2">파일 위치</div>
+                <div className="bg-gray-900 text-green-400 p-3 rounded font-mono text-sm">
+                  stock_tracking_db.sqlite
+                </div>
+                <div className="text-sm text-gray-600 mt-2">
+                  매매 시뮬레이션 및 자동매매 결과를 저장하는 로컬 데이터베이스
+                </div>
+              </div>
+
+              {/* 테이블 1: stock_holdings */}
+              <div className="bg-emerald-50 p-4 rounded-lg mb-4">
+                <h4 className="font-bold text-emerald-700 mb-3 flex items-center gap-2">
+                  <Database className="w-5 h-5" />
+                  1. stock_holdings (보유 종목 테이블)
+                </h4>
+                
+                <div className="bg-white p-4 rounded-lg mb-3">
+                  <div className="text-sm font-semibold text-emerald-600 mb-2">목적</div>
+                  <div className="text-sm text-gray-700">현재 보유 중인 종목 정보 및 매매 시나리오 저장</div>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs border-collapse">
+                    <thead>
+                      <tr className="bg-emerald-600 text-white">
+                        <th className="p-2 text-left border">컬럼명</th>
+                        <th className="p-2 text-left border">타입</th>
+                        <th className="p-2 text-left border">설명</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="bg-white">
+                        <td className="p-2 border font-mono">ticker</td>
+                        <td className="p-2 border font-mono">TEXT</td>
+                        <td className="p-2 border">종목 코드 (PK)</td>
+                      </tr>
+                      <tr className="bg-gray-50">
+                        <td className="p-2 border font-mono">company_name</td>
+                        <td className="p-2 border font-mono">TEXT</td>
+                        <td className="p-2 border">종목명</td>
+                      </tr>
+                      <tr className="bg-white">
+                        <td className="p-2 border font-mono">buy_price</td>
+                        <td className="p-2 border font-mono">REAL</td>
+                        <td className="p-2 border">매수 가격</td>
+                      </tr>
+                      <tr className="bg-gray-50">
+                        <td className="p-2 border font-mono">buy_date</td>
+                        <td className="p-2 border font-mono">TEXT</td>
+                        <td className="p-2 border">매수 일시</td>
+                      </tr>
+                      <tr className="bg-white">
+                        <td className="p-2 border font-mono">current_price</td>
+                        <td className="p-2 border font-mono">REAL</td>
+                        <td className="p-2 border">현재가</td>
+                      </tr>
+                      <tr className="bg-gray-50">
+                        <td className="p-2 border font-mono">last_updated</td>
+                        <td className="p-2 border font-mono">TEXT</td>
+                        <td className="p-2 border">마지막 업데이트 시간</td>
+                      </tr>
+                      <tr className="bg-white">
+                        <td className="p-2 border font-mono">scenario</td>
+                        <td className="p-2 border font-mono">TEXT</td>
+                        <td className="p-2 border">AI 매수 시나리오 (JSON)</td>
+                      </tr>
+                      <tr className="bg-gray-50">
+                        <td className="p-2 border font-mono">target_price</td>
+                        <td className="p-2 border font-mono">REAL</td>
+                        <td className="p-2 border">목표가</td>
+                      </tr>
+                      <tr className="bg-white">
+                        <td className="p-2 border font-mono">stop_loss</td>
+                        <td className="p-2 border font-mono">REAL</td>
+                        <td className="p-2 border">손절가</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="bg-white p-3 rounded-lg mt-3">
+                  <div className="text-xs font-semibold text-emerald-600 mb-2">scenario JSON 구조 예시:</div>
+                  <div className="bg-gray-900 text-green-400 p-3 rounded font-mono text-xs overflow-x-auto">
+                    {`{
+  "portfolio_analysis": "보유 2/10슬롯...",
+  "buy_score": 8,
+  "decision": "진입",
+  "target_price": 450000,
+  "stop_loss": 365000,
+  "investment_period": "단기",
+  "rationale": "업종 대비 저평가...",
+  "sector": "조선",
+  "considerations": "보유 종목 수가 적고..."
+}`}
+                  </div>
+                </div>
+
+                <div className="bg-emerald-100 p-3 rounded-lg mt-3">
+                  <div className="text-xs font-semibold text-emerald-700 mb-2">샘플 데이터:</div>
+                  <div className="space-y-1 text-xs">
+                    <div>• 009540 (HD한국조선해양) - 매수가: 401,000원</div>
+                    <div>• 000660 (SK하이닉스) - 매수가: 268,500원</div>
+                    <div>• 005935 (삼성전자우) - 매수가: 60,900원</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 테이블 2: trading_history */}
+              <div className="bg-emerald-50 p-4 rounded-lg mb-4">
+                <h4 className="font-bold text-emerald-700 mb-3 flex items-center gap-2">
+                  <TrendingUp className="w-5 h-5" />
+                  2. trading_history (매매 이력 테이블)
+                </h4>
+                
+                <div className="bg-white p-4 rounded-lg mb-3">
+                  <div className="text-sm font-semibold text-emerald-600 mb-2">목적</div>
+                  <div className="text-sm text-gray-700">완료된 매매의 수익률과 보유 기간 추적</div>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs border-collapse">
+                    <thead>
+                      <tr className="bg-emerald-600 text-white">
+                        <th className="p-2 text-left border">컬럼명</th>
+                        <th className="p-2 text-left border">타입</th>
+                        <th className="p-2 text-left border">설명</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="bg-white">
+                        <td className="p-2 border font-mono">id</td>
+                        <td className="p-2 border font-mono">INTEGER</td>
+                        <td className="p-2 border">자동 증가 ID (PK)</td>
+                      </tr>
+                      <tr className="bg-gray-50">
+                        <td className="p-2 border font-mono">ticker</td>
+                        <td className="p-2 border font-mono">TEXT</td>
+                        <td className="p-2 border">종목 코드</td>
+                      </tr>
+                      <tr className="bg-white">
+                        <td className="p-2 border font-mono">company_name</td>
+                        <td className="p-2 border font-mono">TEXT</td>
+                        <td className="p-2 border">종목명</td>
+                      </tr>
+                      <tr className="bg-gray-50">
+                        <td className="p-2 border font-mono">buy_price</td>
+                        <td className="p-2 border font-mono">REAL</td>
+                        <td className="p-2 border">매수 가격</td>
+                      </tr>
+                      <tr className="bg-white">
+                        <td className="p-2 border font-mono">buy_date</td>
+                        <td className="p-2 border font-mono">TEXT</td>
+                        <td className="p-2 border">매수 일시</td>
+                      </tr>
+                      <tr className="bg-gray-50">
+                        <td className="p-2 border font-mono">sell_price</td>
+                        <td className="p-2 border font-mono">REAL</td>
+                        <td className="p-2 border">매도 가격</td>
+                      </tr>
+                      <tr className="bg-white">
+                        <td className="p-2 border font-mono">sell_date</td>
+                        <td className="p-2 border font-mono">TEXT</td>
+                        <td className="p-2 border">매도 일시</td>
+                      </tr>
+                      <tr className="bg-gray-50">
+                        <td className="p-2 border font-mono">profit_rate</td>
+                        <td className="p-2 border font-mono">REAL</td>
+                        <td className="p-2 border">수익률 (%)</td>
+                      </tr>
+                      <tr className="bg-white">
+                        <td className="p-2 border font-mono">holding_days</td>
+                        <td className="p-2 border font-mono">INTEGER</td>
+                        <td className="p-2 border">보유 일수</td>
+                      </tr>
+                      <tr className="bg-gray-50">
+                        <td className="p-2 border font-mono">scenario</td>
+                        <td className="p-2 border font-mono">TEXT</td>
+                        <td className="p-2 border">매매 시나리오 (JSON)</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="bg-emerald-100 p-3 rounded-lg mt-3">
+                  <div className="text-xs font-semibold text-emerald-700 mb-2">샘플 데이터:</div>
+                  <div className="space-y-1 text-xs">
+                    <div>• 003580 (HLB글로벌) - 수익률: +17.56% (3일 보유)</div>
+                    <div>• 002630 (오리엔트바이오) - 수익률: +21.52% (0일 보유)</div>
+                    <div>• 000660 (SK하이닉스) - 수익률: -5.02% (4일 보유)</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 테이블 3: market_condition */}
+              <div className="bg-emerald-50 p-4 rounded-lg">
+                <h4 className="font-bold text-emerald-700 mb-3 flex items-center gap-2">
+                  <FileText className="w-5 h-5" />
+                  3. market_condition (시장 상황 테이블)
+                </h4>
+                
+                <div className="bg-white p-4 rounded-lg mb-3">
+                  <div className="text-sm font-semibold text-emerald-600 mb-2">목적</div>
+                  <div className="text-sm text-gray-700">일별 시장 지수 및 변동성 기록</div>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs border-collapse">
+                    <thead>
+                      <tr className="bg-emerald-600 text-white">
+                        <th className="p-2 text-left border">컬럼명</th>
+                        <th className="p-2 text-left border">타입</th>
+                        <th className="p-2 text-left border">설명</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="bg-white">
+                        <td className="p-2 border font-mono">date</td>
+                        <td className="p-2 border font-mono">TEXT</td>
+                        <td className="p-2 border">날짜 (PK)</td>
+                      </tr>
+                      <tr className="bg-gray-50">
+                        <td className="p-2 border font-mono">kospi_index</td>
+                        <td className="p-2 border font-mono">REAL</td>
+                        <td className="p-2 border">코스피 지수</td>
+                      </tr>
+                      <tr className="bg-white">
+                        <td className="p-2 border font-mono">kosdaq_index</td>
+                        <td className="p-2 border font-mono">REAL</td>
+                        <td className="p-2 border">코스닥 지수</td>
+                      </tr>
+                      <tr className="bg-gray-50">
+                        <td className="p-2 border font-mono">condition</td>
+                        <td className="p-2 border font-mono">INTEGER</td>
+                        <td className="p-2 border">시장 상태 (0: 보통, 1: 호황, -1: 불황)</td>
+                      </tr>
+                      <tr className="bg-white">
+                        <td className="p-2 border font-mono">volatility</td>
+                        <td className="p-2 border font-mono">REAL</td>
+                        <td className="p-2 border">변동성 지표</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="bg-emerald-100 p-3 rounded-lg mt-3">
+                  <div className="text-xs font-semibold text-emerald-700 mb-2">샘플 데이터:</div>
+                  <div className="space-y-1 text-xs">
+                    <div>• 2025-03-27 - 코스피: 2607.15, 코스닥: 707.49, 변동성: 1.17</div>
+                    <div>• 2025-04-01 - 코스피: 2521.39, 코스닥: 691.45, 변동성: 1.32</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 핵심 활용 */}
+              <div className="bg-yellow-100 p-4 rounded-lg mt-4">
+                <h4 className="font-bold text-yellow-800 mb-3">💡 데이터베이스 활용</h4>
+                <div className="grid grid-cols-2 gap-3 text-sm">
+                  <div className="flex items-start gap-2">
+                    <span className="text-emerald-600">✓</span>
+                    <span>포트폴리오 관리 (10개 슬롯)</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-emerald-600">✓</span>
+                    <span>매매 성과 분석</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-emerald-600">✓</span>
+                    <span>AI 시나리오 저장/조회</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-emerald-600">✓</span>
+                    <span>시장 환경 추적</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      )
+    },
+
     // 슬라이드 9: 텔레그램 봇 - /evaluate
     {
       title: "7. 텔레그램 봇 - /evaluate 명령어",
@@ -1067,7 +1357,7 @@ const PrismPresentation = () => {
       )
     },
 
-    // 슬라이드 9: 텔레그램 봇 - /report
+    // 슬라이드 10: 텔레그램 봇 - /report
     {
       title: "8. 텔레그램 봇 - /report 명령어",
       icon: <FileText className="w-6 h-6" />,
@@ -1188,7 +1478,7 @@ const PrismPresentation = () => {
       )
     },
 
-    // 슬라이드 10: 봇 vs 오케스트레이터
+    // 슬라이드 11: 봇 vs 오케스트레이터
     {
       title: "9. 봇 vs 오케스트레이터 비교",
       icon: <GitBranch className="w-6 h-6" />,
@@ -1307,7 +1597,7 @@ const PrismPresentation = () => {
       )
     },
 
-    // 슬라이드 11: 파일 구조
+    // 슬라이드 12: 파일 구조
     {
       title: "10. 주요 파일 구조",
       icon: <Database className="w-6 h-6" />,
@@ -1408,7 +1698,7 @@ const PrismPresentation = () => {
       )
     },
 
-    // 슬라이드 12: 핵심 특징
+    // 슬라이드 13: 핵심 특징
     {
       title: "11. 핵심 설계 특징",
       icon: <Zap className="w-6 h-6" />,
@@ -1513,7 +1803,7 @@ const PrismPresentation = () => {
       )
     },
 
-    // 슬라이드 13: 마무리
+    // 슬라이드 14: 마무리
     {
       title: "감사합니다",
       type: "ending",
