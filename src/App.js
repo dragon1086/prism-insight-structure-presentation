@@ -1035,11 +1035,13 @@ const PrismPresentation = () => {
                 </div>
 
                 <div className="bg-emerald-100 p-3 rounded-lg mt-3">
-                  <div className="text-xs font-semibold text-emerald-700 mb-2">샘플 데이터:</div>
+                  <div className="text-xs font-semibold text-emerald-700 mb-2">샘플 데이터 (현재 보유 종목):</div>
                   <div className="space-y-1 text-xs">
-                    <div>• 009540 (HD한국조선해양) - 매수가: 401,000원</div>
-                    <div>• 000660 (SK하이닉스) - 매수가: 268,500원</div>
-                    <div>• 005935 (삼성전자우) - 매수가: 60,900원</div>
+                    <div>• 272550 (삼양패키징) - 매수가: 13,350원, 현재가: 14,210원 (+6.4%)</div>
+                    <div>• 005930 (삼성전자) - 매수가: 86,000원, 현재가: 89,000원 (+3.5%)</div>
+                  </div>
+                  <div className="mt-2 text-xs text-gray-600">
+                    💡 총 2개 종목 보유 중 (10개 슬롯 중 2개 사용)
                   </div>
                 </div>
               </div>
@@ -1121,11 +1123,10 @@ const PrismPresentation = () => {
                 </div>
 
                 <div className="bg-emerald-100 p-3 rounded-lg mt-3">
-                  <div className="text-xs font-semibold text-emerald-700 mb-2">샘플 데이터:</div>
-                  <div className="space-y-1 text-xs">
-                    <div>• 003580 (HLB글로벌) - 수익률: +17.56% (3일 보유)</div>
-                    <div>• 002630 (오리엔트바이오) - 수익률: +21.52% (0일 보유)</div>
-                    <div>• 000660 (SK하이닉스) - 수익률: -5.02% (4일 보유)</div>
+                  <div className="text-xs font-semibold text-emerald-700 mb-2">현재 상태:</div>
+                  <div className="space-y-1 text-xs text-gray-600">
+                    <div>• 아직 완료된 매매 이력이 없습니다.</div>
+                    <div>• 첫 매도 체결 시 자동으로 이력이 기록됩니다.</div>
                   </div>
                 </div>
               </div>
@@ -1182,10 +1183,14 @@ const PrismPresentation = () => {
                 </div>
 
                 <div className="bg-emerald-100 p-3 rounded-lg mt-3">
-                  <div className="text-xs font-semibold text-emerald-700 mb-2">샘플 데이터:</div>
+                  <div className="text-xs font-semibold text-emerald-700 mb-2">최신 데이터:</div>
                   <div className="space-y-1 text-xs">
-                    <div>• 2025-03-27 - 코스피: 2607.15, 코스닥: 707.49, 변동성: 1.17</div>
-                    <div>• 2025-04-01 - 코스피: 2521.39, 코스닥: 691.45, 변동성: 1.32</div>
+                    <div>• 2025-10-02 - 코스피: 3,549.21, 코스닥: 854.25, 시장상태: 호황(1), 변동성: 1.01</div>
+                    <div>• 2025-10-01 - 코스피: 3,455.83, 코스닥: 845.34, 시장상태: 호황(1), 변동성: 0.96</div>
+                    <div>• 2025-09-30 - 코스피: 3,424.60, 코스닥: 841.99, 시장상태: 호황(1), 변동성: 0.98</div>
+                  </div>
+                  <div className="mt-2 text-xs text-gray-600">
+                    💡 condition: 1=호황, 0=보통, -1=불황
                   </div>
                 </div>
               </div>
