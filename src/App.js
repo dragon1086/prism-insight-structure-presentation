@@ -1909,37 +1909,217 @@ const PrismPresentation = () => {
       )
     },
 
-    // 슬라이드 14: 마무리
+    // 슬라이드 14: 데모 시연
     {
-      title: "감사합니다",
-      type: "ending",
+      title: "프리즘 인사이트 설치 및 데모 시연",
+      icon: <Terminal className="w-6 h-6" />,
       content: (
-          <div className="text-center space-y-8">
-            <div className="text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-              Q & A
-            </div>
-            <div className="text-2xl text-gray-600">
-              프리즘 인사이트 코드 구조 분석
-            </div>
-            <div className="flex justify-center gap-12 mt-12">
-              <div className="text-center">
-                <Terminal className="w-16 h-16 text-blue-500 mx-auto mb-3" />
-                <div className="font-semibold">오케스트레이터</div>
-                <div className="text-sm text-gray-600">자동화 파이프라인</div>
-              </div>
-              <div className="text-center">
-                <Bot className="w-16 h-16 text-purple-500 mx-auto mb-3" />
-                <div className="font-semibold">텔레그램 봇</div>
-                <div className="text-sm text-gray-600">대화형 서비스</div>
-              </div>
-              <div className="text-center">
-                <TrendingUp className="w-16 h-16 text-red-500 mx-auto mb-3" />
-                <div className="font-semibold">자동매매</div>
-                <div className="text-sm text-gray-600">AI 기반 트레이딩</div>
+          <div className="space-y-6">
+            {/* 시스템 정보 */}
+            <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-6 rounded-xl border-l-4 border-blue-500">
+              <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                <Terminal className="w-6 h-6" />
+                시스템 환경
+              </h3>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-white p-4 rounded-lg">
+                  <div className="font-semibold text-blue-700 mb-2">운영체제</div>
+                  <div className="text-gray-700">Ubuntu Server 24.04.3 LTS</div>
+                </div>
+                <div className="bg-white p-4 rounded-lg">
+                  <div className="font-semibold text-blue-700 mb-2">Python 버전</div>
+                  <div className="text-gray-700">Python 3.12 (시스템 기본)</div>
+                </div>
               </div>
             </div>
-            <div className="text-gray-500 text-lg mt-12">
-              💡 추가 질문이나 커스터마이징이 필요하시면 언제든 문의주세요
+
+            {/* 설치 단계 */}
+            <div className="bg-gradient-to-r from-indigo-50 to-indigo-100 p-6 rounded-xl border-l-4 border-indigo-500">
+              <h3 className="text-xl font-bold mb-4">📦 설치 Flow</h3>
+
+              {/* 1. 파이썬 환경 셋팅 */}
+              <div className="bg-white p-4 rounded-lg mb-4">
+                <div className="font-bold text-indigo-700 mb-3 flex items-center gap-2">
+                  <span className="bg-indigo-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm">1</span>
+                  파이썬 환경 셋팅
+                </div>
+                
+                <div className="space-y-3">
+                  <div>
+                    <div className="text-xs font-semibold text-gray-700 mb-1">시스템 업데이트</div>
+                    <div className="bg-gray-900 text-green-400 p-2 rounded font-mono text-xs">
+                      sudo apt update && sudo apt upgrade -y
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="text-xs font-semibold text-gray-700 mb-1">pip 설치</div>
+                    <div className="bg-gray-900 text-green-400 p-2 rounded font-mono text-xs">
+                      sudo apt install python3-pip
+                    </div>
+                  </div>
+
+                  <div className="bg-yellow-50 p-3 rounded">
+                    <div className="text-xs font-semibold text-yellow-800 mb-2">⚠️ 가상환경 필수 (Ubuntu 24 보안정책)</div>
+                    <div className="space-y-2">
+                      <div className="bg-gray-900 text-green-400 p-2 rounded font-mono text-xs">
+                        sudo apt install python3-full python3-venv
+                      </div>
+                      <div className="bg-gray-900 text-green-400 p-2 rounded font-mono text-xs">
+                        python3 -m venv venv
+                      </div>
+                      <div className="bg-gray-900 text-green-400 p-2 rounded font-mono text-xs">
+                        source venv/bin/activate
+                      </div>
+                      <div className="text-xs text-gray-600 mt-1">
+                        ✓ 프롬프트가 (venv)로 변경됨 확인
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 2. 소스코드 및 의존성 */}
+              <div className="bg-white p-4 rounded-lg mb-4">
+                <div className="font-bold text-indigo-700 mb-3 flex items-center gap-2">
+                  <span className="bg-indigo-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm">2</span>
+                  소스코드 및 의존성 설치
+                </div>
+                
+                <div className="space-y-3">
+                  <div>
+                    <div className="text-xs font-semibold text-gray-700 mb-1">GitHub 클론 및 의존성 설치</div>
+                    <div className="bg-gray-900 text-green-400 p-2 rounded font-mono text-xs space-y-1">
+                      <div>git clone https://github.com/dragon1086/prism-insight.git</div>
+                      <div>cd prism-insight</div>
+                      <div>pip install -r requirements.txt</div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="text-xs font-semibold text-gray-700 mb-1">PDF 변환 도구 설치</div>
+                    <div className="bg-gray-900 text-green-400 p-2 rounded font-mono text-xs">
+                      sudo apt-get install wkhtmltopdf
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="text-xs font-semibold text-gray-700 mb-1">Node.js 및 Perplexity MCP 설치</div>
+                    <div className="bg-gray-900 text-green-400 p-2 rounded font-mono text-xs space-y-1">
+                      <div>sudo apt install npm</div>
+                      <div>cd perplexity-ask</div>
+                      <div>npm install</div>
+                      <div>cd ..</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 3. 한글 패치 */}
+              <div className="bg-white p-4 rounded-lg mb-4">
+                <div className="font-bold text-indigo-700 mb-3 flex items-center gap-2">
+                  <span className="bg-indigo-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm">3</span>
+                  한글 폰트 설치
+                </div>
+                <div className="bg-gray-900 text-green-400 p-2 rounded font-mono text-xs">
+                  python3 ./cores/ubuntu_font_installer.py
+                </div>
+                <div className="text-xs text-gray-600 mt-2">
+                  ✓ 나눔고딕, 나눔명조 등 한글 폰트 자동 설치
+                </div>
+              </div>
+
+              {/* 4. 설정 파일 */}
+              <div className="bg-white p-4 rounded-lg mb-4">
+                <div className="font-bold text-indigo-700 mb-3 flex items-center gap-2">
+                  <span className="bg-indigo-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm">4</span>
+                  설정 파일 생성
+                </div>
+                <div className="bg-gray-900 text-green-400 p-2 rounded font-mono text-xs space-y-1">
+                  <div>cp .env.example .env</div>
+                  <div>cp mcp_agent.config.yaml.example mcp_agent.config.yaml</div>
+                  <div>cp mcp_agent.secrets.yaml.example mcp_agent.secrets.yaml</div>
+                </div>
+                <div className="bg-yellow-50 p-2 rounded mt-2">
+                  <div className="text-xs text-yellow-800">
+                    ⚠️ 각 파일에 실제 API 키 입력 필요 (OpenAI, Telegram, KIS 등)
+                  </div>
+                </div>
+              </div>
+
+              {/* 5. 스케줄러 */}
+              <div className="bg-white p-4 rounded-lg mb-4">
+                <div className="font-bold text-indigo-700 mb-3 flex items-center gap-2">
+                  <span className="bg-indigo-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm">5</span>
+                  스케줄러 설정 (Crontab)
+                </div>
+                <div className="bg-gray-900 text-green-400 p-2 rounded font-mono text-xs space-y-1">
+                  <div>chmod 755 utils/setup_crontab_simple.sh</div>
+                  <div>utils/setup_crontab_simple.sh</div>
+                </div>
+                <div className="text-xs text-gray-600 mt-2">
+                  ✓ 오전/오후 자동 실행 스케줄 등록
+                </div>
+              </div>
+
+              {/* 6. 데모 실행 */}
+              <div className="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-xl border-2 border-green-400">
+                <div className="font-bold text-green-800 mb-3 flex items-center gap-2">
+                  <Zap className="w-6 h-6" />
+                  데모 실행 명령어
+                </div>
+                <div className="bg-gray-900 text-green-400 p-3 rounded font-mono text-sm">
+                  python3 stock_analysis_orchestrator.py --mode morning
+                </div>
+                <div className="mt-3 grid grid-cols-2 gap-2 text-xs">
+                  <div className="bg-white p-2 rounded">
+                    <div className="font-semibold text-green-700">--mode morning</div>
+                    <div className="text-gray-600">오전 트리거 실행</div>
+                  </div>
+                  <div className="bg-white p-2 rounded">
+                    <div className="font-semibold text-green-700">--mode afternoon</div>
+                    <div className="text-gray-600">오후 트리거 실행</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 참고 링크 */}
+            <div className="bg-gradient-to-r from-purple-50 to-purple-100 p-4 rounded-xl">
+              <h4 className="font-bold text-purple-700 mb-3">📚 참고 자료</h4>
+              <div className="space-y-2 text-sm">
+                <div className="flex items-center gap-2">
+                  <GitBranch className="w-4 h-4 text-purple-600" />
+                  <span className="font-mono text-purple-800">https://github.com/dragon1086/prism-insight</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <FileText className="w-4 h-4 text-purple-600" />
+                  <span className="text-purple-700">상세 설치 가이드는 GitHub README.md 참조</span>
+                </div>
+              </div>
+            </div>
+
+            {/* 데모 준비사항 */}
+            <div className="bg-red-50 p-4 rounded-xl border-2 border-red-300">
+              <h4 className="font-bold text-red-700 mb-3">⚠️ 데모 시연 전 체크리스트</h4>
+              <div className="grid grid-cols-2 gap-3 text-sm">
+                <div className="flex items-start gap-2">
+                  <span className="text-red-600">☐</span>
+                  <span>가상환경 활성화 확인</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-red-600">☐</span>
+                  <span>API 키 설정 완료</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-red-600">☐</span>
+                  <span>한글 폰트 설치 확인</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-red-600">☐</span>
+                  <span>시장 개장 시간 확인</span>
+                </div>
+              </div>
             </div>
           </div>
       )
