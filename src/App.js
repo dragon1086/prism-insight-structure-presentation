@@ -2004,9 +2004,22 @@ const PrismPresentation = () => {
                   </div>
 
                   <div>
-                    <div className="text-xs font-semibold text-gray-700 mb-1">Node.js 및 Perplexity MCP 설치</div>
+                    <div className="text-xs font-semibold text-gray-700 mb-1">Node.js 최신 LTS 버전 설치</div>
                     <div className="bg-gray-900 text-green-400 p-2 rounded font-mono text-xs space-y-1">
-                      <div>sudo apt install npm</div>
+                      <div># NodeSource 저장소 추가 (Node.js 20.x LTS)</div>
+                      <div>curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -</div>
+                      <div>sudo apt-get install -y nodejs</div>
+                      <div className="mt-2"># 버전 확인</div>
+                      <div>node --version && npm --version</div>
+                    </div>
+                    <div className="text-xs text-gray-600 mt-2">
+                      ✓ Node.js 20.x LTS 및 npm 최신 버전 자동 설치
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="text-xs font-semibold text-gray-700 mb-1">Perplexity MCP 설치</div>
+                    <div className="bg-gray-900 text-green-400 p-2 rounded font-mono text-xs space-y-1">
                       <div>cd perplexity-ask</div>
                       <div>npm install</div>
                       <div>cd ..</div>
